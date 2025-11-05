@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:couldai_user_app/services/csv_exporter_service.dart';
 
 class SummaryScreen extends StatelessWidget {
   const SummaryScreen({super.key});
@@ -31,6 +32,25 @@ class SummaryScreen extends StatelessWidget {
               color: Colors.blue,
               icon: Icons.account_balance_wallet,
             ),
+            const Spacer(), // Pushes the button to the bottom
+            ElevatedButton.icon(
+              icon: const Icon(Icons.download),
+              label: const Text('Export All Data (CSV)'),
+              onPressed: () {
+                final CsvExporterService exporter = CsvExporterService();
+                exporter.exportAllDataToCsv();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('Preparing CSV file for sharing...')),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                textStyle:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 16), // Padding at the bottom
           ],
         ),
       ),
